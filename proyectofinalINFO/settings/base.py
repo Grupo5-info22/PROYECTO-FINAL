@@ -14,12 +14,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import sys # librerías del sistema op que me permiten definir/modificar rutas de manera más rápida
+from pickle import TRUE
+from re import TEMPLATE
+import sys
+from telnetlib import LOGOUT # librerías del sistema op que me permiten definir/modificar rutas de manera más rápida
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #busca dónde está la carpeta del proyecto dentro de cualquier compu
 
@@ -28,10 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
-
+#SECRET_KEY = 'django-insecure-5lswx!kgcki*8^i!5=hzc+jk_ddkqyttnj@z!5)*!mox#o6v&4'
+SECRET_KEY = 'django-insecure-5lswx!kgcki*8^i!5=hzc+jk_ddkqyttnj@z!5)*!mox#o6v&4'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = TRUE
 # True cuando trabajo en local o servidor que no sea producción (lo que se sube a la nube)
 
 
@@ -48,9 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.noticias_app',
+    
+
+    'apps.blog_auth_app',
+
+    'apps.eventos_app'
+
     # Agregar aplicación BLOG/EVENTOS para poder trabajar con esa app
 ]
-
+#middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,10 +72,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proyectofinalINFO.urls'
 
+
+            
+        
+
+
+TEMPLATE_DIR = os.path.join(os.path.dirname(BASE_DIR), 'templates')
+TEMPLATE_NOTICIAS = os.path.join(os.path.dirname(BASE_DIR), 'templates/noticias')
+TEMPLATE_EVENTOS = os.path.join(os.path.dirname(BASE_DIR), 'templates/eventos')
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(os.path.dirname(BASE_DIR), 'templates')], 
+        'DIRS': [TEMPLATE_DIR,TEMPLATE_NOTICIAS,TEMPLATE_EVENTOS], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,3 +156,7 @@ MEDIA_ROOT = (os.path.join(os.path.dirname(BASE_DIR), 'media'))
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login' 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL= '/'

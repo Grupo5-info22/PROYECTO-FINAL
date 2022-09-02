@@ -20,8 +20,8 @@ class Noticia(models.Model):
         self.publicado = datetime.now()
         self.save()
 
-    def comentariosAprobados(self):
-        return self.comentario.filter(aprobado=True)  
+    #def comentariosAprobados(self):
+    #    return self.comentarios.filter(aprobado=True)  
 
 # cuando se crea una nueva tabla acá, ejecutar py manage.py makemigrations noticias_app 
 # luego py manage.py migrate
@@ -35,4 +35,4 @@ class Comentarios(models.Model):
     
     def aprobarComentario(self):
         self.aprobado = True
-        self.save()
+        self.save() 
