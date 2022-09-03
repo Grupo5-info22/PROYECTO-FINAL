@@ -16,7 +16,9 @@ from pathlib import Path
 import os
 from pickle import TRUE
 from re import TEMPLATE
-import sys # librerías del sistema op que me permiten definir/modificar rutas de manera más rápida
+import sys
+
+from telnetlib import LOGOUT # librerías del sistema op que me permiten definir/modificar rutas de manera más rápida
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,9 +43,6 @@ ALLOWED_HOSTS = []
 #También redefinida en producción, URLs/dominio del sitio
 
 # Application definition
-AUTH_USER_MODEL = "usuario_app.Usuario"
-LOGIN_URL = '/login' 
-LOGIN_REDIRECT_URL = '../'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,9 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.noticias_app',
-    'apps.usuario_app',
-    'apps.blog_auth_app' ,
-    'apps.eventos_app'
+    'apps.blog_auth_app',
+    'apps.eventos_app',
 
     # Agregar aplicación BLOG/EVENTOS para poder trabajar con esa app
 ]
@@ -73,11 +71,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'proyectofinalINFO.urls'
 
 
-
 TEMPLATE_DIR = os.path.join(os.path.dirname(BASE_DIR), 'templates')
 TEMPLATE_NOTICIAS = os.path.join(os.path.dirname(BASE_DIR), 'templates/noticias')
 TEMPLATE_EVENTOS = os.path.join(os.path.dirname(BASE_DIR), 'templates/eventos')
-
+TEMPLATE_AUTH = os.path.join(os.path.dirname(BASE_DIR),'templates/registration')
 
 TEMPLATES = [
     {
@@ -147,9 +144,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR), 'static')),
 
 MEDIA = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media')
+MEDIA_ROOT = (os.path.join(os.path.dirname(BASE_DIR), 'media'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = '/login' 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL= '/'
